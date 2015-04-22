@@ -5,30 +5,34 @@
  */
 package com.carJee.servlet;
 
-import com.carJee.facade.AuthorFacadeLocal;
+import com.carJee.bean.CartBeanLocal;
 import com.carJee.facade.BookFacadeLocal;
-import com.carJee.model.Author;
 import com.carJee.model.Book;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Collection;
 import javax.ejb.EJB;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author rakotoarivony
+ * @author dufaux
  */
-public class AdministrationServlet extends HttpServlet {
-    @EJB(name="AuthorFacade")
-    private AuthorFacadeLocal authorFacade;
+@WebServlet(name = "addinbasket", urlPatterns = {"/addinbasket"})
+public class addinbasket extends HttpServlet {
+
+    @EJB(name="CartBean")
+    CartBeanLocal cartejb;
     
     @EJB(name="BookFacade")
-    private BookFacadeLocal bookFacade;
-
+    BookFacadeLocal bookfacade;
+    
+    private static final String SHOPPING_CART_BEAN_SESION_KEY = "shoppingCart";
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,12 +42,33 @@ public class AdministrationServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-        Collection authors = authorFacade.findAll();
-        request.setAttribute("authorsList", authors);
-        this.getServletContext().getRequestDispatcher("/WEB-INF/administration.jsp").forward(request, response);
-    }
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        CartBeanLocal cart = (CartBeanLocal) request.getSession().getAttribute(SHOPPING_CART_BEAN_SESION_KEY);
     
+        if(cart == null){
+          // EJB is not present in the HTTP session
+          // so let's fetch a new one from the container
+          /*try {
+            InitialContext ic = new InitialContext();*/
+            //cart = (CartBeanLocal) ic.lookup("java:global/com-byteslounge/com"); ??
+            cart = cartejb;
+            
+            // put EJB in HTTP session for future servlet calls
+            request.getSession().setAttribute(
+              SHOPPING_CART_BEAN_SESION_KEY, 
+              cart);
+
+          /*} catch (NamingException e) {
+            throw new ServletException(e);
+          }*/
+        }
+        
+        String bookname = request.getParameter("book");
+        Book thebook = bookfacade.find(bookname);
+        cart.addBook(thebook);
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -57,7 +82,6 @@ public class AdministrationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("book_added", false);
         processRequest(request, response);
     }
 
@@ -72,17 +96,6 @@ public class AdministrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String title = request.getParameter("title");
-        int year = Integer.parseInt(request.getParameter("year"));
-        Author author = authorFacade.find(Integer.parseInt(request.getParameter("author")));
-        Book newBook = new Book(title, year);
-        newBook.setAuthor(author);
-        
-        bookFacade.create(newBook);
-        
-        request.setAttribute("chosen_author",author);
-        request.setAttribute("book_added", true);
-        
         processRequest(request, response);
     }
 

@@ -49,7 +49,7 @@ public class Author implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "FIRSTNAME")
     private String firstname;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "authorId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
     private Collection<Book> bookCollection;
 
     public Author() {

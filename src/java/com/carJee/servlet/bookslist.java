@@ -11,24 +11,24 @@ import com.carJee.model.Author;
 import com.carJee.model.Book;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Collection;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author rakotoarivony
+ * @author dufaux
  */
-public class AdministrationServlet extends HttpServlet {
-    @EJB(name="AuthorFacade")
-    private AuthorFacadeLocal authorFacade;
-    
-    @EJB(name="BookFacade")
-    private BookFacadeLocal bookFacade;
+@WebServlet(name = "bookslist", urlPatterns = {"/bookslist"})
+public class bookslist extends HttpServlet {
 
+    @EJB(name="BookFacade")
+    BookFacadeLocal bookfacade;
+            
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,12 +38,16 @@ public class AdministrationServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-        Collection authors = authorFacade.findAll();
-        request.setAttribute("authorsList", authors);
-        this.getServletContext().getRequestDispatcher("/WEB-INF/administration.jsp").forward(request, response);
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        List<Book> booklst = bookfacade.findAll();
+        String VUE = "/WEB-INF/books.jsp";
+        
+        request.setAttribute("bookslist", booklst);
+        
+        this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
     }
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -57,7 +61,6 @@ public class AdministrationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("book_added", false);
         processRequest(request, response);
     }
 
@@ -72,17 +75,6 @@ public class AdministrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String title = request.getParameter("title");
-        int year = Integer.parseInt(request.getParameter("year"));
-        Author author = authorFacade.find(Integer.parseInt(request.getParameter("author")));
-        Book newBook = new Book(title, year);
-        newBook.setAuthor(author);
-        
-        bookFacade.create(newBook);
-        
-        request.setAttribute("chosen_author",author);
-        request.setAttribute("book_added", true);
-        
         processRequest(request, response);
     }
 

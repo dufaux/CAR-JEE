@@ -5,30 +5,36 @@
  */
 package com.carJee.servlet;
 
-import com.carJee.facade.AuthorFacadeLocal;
+import com.carJee.bean.CartBeanLocal;
 import com.carJee.facade.BookFacadeLocal;
-import com.carJee.model.Author;
 import com.carJee.model.Book;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Collection;
+import java.util.List;
 import javax.ejb.EJB;
+import javax.naming.InitialContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author rakotoarivony
+ * @author dufaux
  */
-public class AdministrationServlet extends HttpServlet {
-    @EJB(name="AuthorFacade")
-    private AuthorFacadeLocal authorFacade;
+@WebServlet(name = "cart", urlPatterns = {"/cart"})
+public class cart extends HttpServlet {
+
+    
+    @EJB(name="CartBean")
+    CartBeanLocal cartejb;
     
     @EJB(name="BookFacade")
-    private BookFacadeLocal bookFacade;
-
+    BookFacadeLocal bookfacade;
+        
+    private static final String SHOPPING_CART_BEAN_SESION_KEY = "shoppingCart";
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,12 +44,37 @@ public class AdministrationServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-        Collection authors = authorFacade.findAll();
-        request.setAttribute("authorsList", authors);
-        this.getServletContext().getRequestDispatcher("/WEB-INF/administration.jsp").forward(request, response);
-    }
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+         
+        String VUE = "/WEB-INF/cart.jsp";
+        
+        CartBeanLocal cart = (CartBeanLocal) request.getSession().getAttribute(SHOPPING_CART_BEAN_SESION_KEY);
     
+        if(cart == null){
+          // EJB is not present in the HTTP session
+          // so let's fetch a new one from the container
+            //cart = (CartBeanLocal) ic.lookup("java:global/com-byteslounge/com"); ??
+            cart = cartejb;
+            
+            // put EJB in HTTP session for future servlet calls
+            request.getSession().setAttribute(
+              SHOPPING_CART_BEAN_SESION_KEY, 
+              cart);
+        }
+        
+        String deletedname = (String) request.getParameter("deletedname");
+        
+        if(deletedname != null){
+            Book thebook = bookfacade.find(deletedname);
+            cart.removeBook(thebook);
+        }
+        
+        List<Book> booklst = cart.getAll();
+        request.setAttribute("bookslist", booklst);
+        
+        this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -57,7 +88,6 @@ public class AdministrationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("book_added", false);
         processRequest(request, response);
     }
 
@@ -72,17 +102,6 @@ public class AdministrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String title = request.getParameter("title");
-        int year = Integer.parseInt(request.getParameter("year"));
-        Author author = authorFacade.find(Integer.parseInt(request.getParameter("author")));
-        Book newBook = new Book(title, year);
-        newBook.setAuthor(author);
-        
-        bookFacade.create(newBook);
-        
-        request.setAttribute("chosen_author",author);
-        request.setAttribute("book_added", true);
-        
         processRequest(request, response);
     }
 

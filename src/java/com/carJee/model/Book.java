@@ -50,7 +50,7 @@ public class Book implements Serializable {
     private Collection<Command> commandCollection;
     @JoinColumn(name = "AUTHOR_ID", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private Author authorId;
+    private Author author;
 
     public Book() {
     }
@@ -88,12 +88,12 @@ public class Book implements Serializable {
         this.commandCollection = commandCollection;
     }
 
-    public Author getAuthorId() {
-        return authorId;
+    public Author getAuthor() {
+        return author;
     }
 
-    public void setAuthorId(Author authorId) {
-        this.authorId = authorId;
+    public void setAuthor(Author authorId) {
+        this.author = authorId;
     }
 
     @Override
