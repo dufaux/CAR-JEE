@@ -5,8 +5,11 @@
  */
 package com.carJee.servlet;
 
+import com.carJee.facade.ClientFacadeLocal;
+import com.carJee.model.Client;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,12 +18,17 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author rakotoarivony
+ * @author dufaux
  */
-@WebServlet(name = "Index", urlPatterns = {"/acceuil"})
+@WebServlet(name = "index", urlPatterns = {"/index"})
 public class Index extends HttpServlet {
 
+    
+    @EJB(name="ClientFacade")
+    ClientFacadeLocal clientfacade;
+       
     /**
+     * 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
@@ -31,9 +39,37 @@ public class Index extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+        
+        boolean connected = false;
+        boolean wrongconnec = false;
+        
+        // gestion de la connexion.
+        String ident = (String) request.getParameter("ident");
+        String password = (String) request.getParameter("password");
+        
+        if(ident != null && password != null){
+            Client cli = clientfacade.find(ident);
+            
+            
+            if(cli != null && password.equals(cli.getPassword())){
+                request.getSession().setAttribute("idcli",ident);
+                connected = true;
+            }
+            else{
+                wrongconnec = true;
+            }
         }
-    
+        
+        String identifiant = (String) request.getSession().getAttribute("idcli");
+        if(identifiant == null){
+            connected = false;
+        }
+        request.setAttribute("connected", connected);
+        request.setAttribute("wrongconnec", wrongconnec);
+        request.setAttribute("identifiant", identifiant);
+        String VUE = "/WEB-INF/index.jsp";
+        this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

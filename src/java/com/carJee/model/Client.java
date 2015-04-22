@@ -117,7 +117,7 @@ public class Client implements Serializable {
 
     @Override
     public String toString() {
-        return "username=" + username;
+        return "com.carJee.model.Client[ username=" + username + " ]";
     }
     
 }

@@ -7,13 +7,19 @@ package com.carJee.model;
 
 import java.io.Serializable;
 import java.util.Collection;
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
-import javax.persistence.EmbeddedId;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -23,34 +29,64 @@ import javax.persistence.Table;
 @Table(name = "AUTHOR")
 @NamedQueries({
     @NamedQuery(name = "Author.findAll", query = "SELECT a FROM Author a"),
-    @NamedQuery(name = "Author.findByName", query = "SELECT a FROM Author a WHERE a.authorPK.name = :name"),
-    @NamedQuery(name = "Author.findByFirstname", query = "SELECT a FROM Author a WHERE a.authorPK.firstname = :firstname")})
+    @NamedQuery(name = "Author.findById", query = "SELECT a FROM Author a WHERE a.id = :id"),
+    @NamedQuery(name = "Author.findByName", query = "SELECT a FROM Author a WHERE a.name = :name"),
+    @NamedQuery(name = "Author.findByFirstname", query = "SELECT a FROM Author a WHERE a.firstname = :firstname")})
 public class Author implements Serializable {
     private static final long serialVersionUID = 1L;
-    
-    @EmbeddedId
-    protected AuthorPK authorPK;
-    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID")
+    private Integer id;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "NAME")
+    private String name;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "FIRSTNAME")
+    private String firstname;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
     private Collection<Book> bookCollection;
 
     public Author() {
     }
 
-    public Author(AuthorPK authorPK) {
-        this.authorPK = authorPK;
+    public Author(Integer id) {
+        this.id = id;
     }
 
-    public Author(String name, String firstname) {
-        this.authorPK = new AuthorPK(name, firstname);
+    public Author(Integer id, String name, String firstname) {
+        this.id = id;
+        this.name = name;
+        this.firstname = firstname;
     }
 
-    public AuthorPK getAuthorPK() {
-        return authorPK;
+    public Integer getId() {
+        return id;
     }
 
-    public void setAuthorPK(AuthorPK authorPK) {
-        this.authorPK = authorPK;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
     public Collection<Book> getBookCollection() {
@@ -64,7 +100,7 @@ public class Author implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (authorPK != null ? authorPK.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -75,7 +111,7 @@ public class Author implements Serializable {
             return false;
         }
         Author other = (Author) object;
-        if ((this.authorPK == null && other.authorPK != null) || (this.authorPK != null && !this.authorPK.equals(other.authorPK))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -83,7 +119,7 @@ public class Author implements Serializable {
 
     @Override
     public String toString() {
-        return "com.carJee.model.Author[ authorPK=" + authorPK + " ]";
+        return "com.carJee.model.Author[ id=" + id + " ]";
     }
     
 }

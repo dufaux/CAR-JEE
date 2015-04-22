@@ -1,18 +1,18 @@
 create table author(
+	id int GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
 	name varchar(255) not null,
 	firstname varchar(255) not null,
-	constraint author_pk primary key (name,firstname)
+	constraint author_pk primary key (id)
 );
 
 create table book(
 	title varchar(255) not null,
 	parution_year int not null,
-	author_name varchar(255) not null,
-	author_firstname varchar(255) not null,
+	author_id int not null,
 	constraint book_pk primary key (title),
 	constraint author_fk 
-	foreign key(author_name,author_firstname)
-	references author(name,firstname)
+	foreign key(author_id)
+	references author
 );
 
 create table client(
@@ -23,7 +23,7 @@ create table client(
 );
 
 create table command(
-	command_id int not null GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+	command_id int GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
 	client_username varchar(255),
 	constraint command_pk primary key (command_id),
 	constraint client_fk
@@ -39,7 +39,7 @@ create table book_join_command(
         constraint command_fk foreign key (command_number) references command
 );
 
-insert into author values('Hugo','Victor');
-insert into author values('Hemingway','Ernest');
-insert into author values('Boulet','');
-insert into author values('Houellebecq','Michel');
+insert into author(name,firstname) values('Hugo','Victor');
+insert into author(name,firstname) values('Hemingway','Ernest');
+insert into author(name,firstname) values('Boulet','');
+insert into author(name,firstname) values('Houellebecq','Michel');

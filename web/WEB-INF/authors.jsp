@@ -16,8 +16,8 @@
         <h1 id="main_title">Liste des auteurs</h1>
         <c:forEach items="${authorsList}" var="author">
             <div class="author">
-                <span class="name">${author.authorPK.name}</span>
-                <span class="firstname">${author.authorPK.firstname}</span>
+                <span class="name">${author.name}</span>
+                <span class="firstname">${author.firstname}</span>
             </div>
         </c:forEach>
     </body>

@@ -12,7 +12,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -49,9 +48,7 @@ public class Book implements Serializable {
         @JoinColumn(name = "COMMAND_NUMBER", referencedColumnName = "COMMAND_ID")})
     @ManyToMany
     private Collection<Command> commandCollection;
-    @JoinColumns({
-        @JoinColumn(name = "AUTHOR_NAME", referencedColumnName = "NAME"),
-        @JoinColumn(name = "AUTHOR_FIRSTNAME", referencedColumnName = "FIRSTNAME")})
+    @JoinColumn(name = "AUTHOR_ID", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Author author;
 
@@ -95,8 +92,8 @@ public class Book implements Serializable {
         return author;
     }
 
-    public void setAuthor(Author author) {
-        this.author = author;
+    public void setAuthor(Author authorId) {
+        this.author = authorId;
     }
 
     @Override
