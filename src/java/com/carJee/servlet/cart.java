@@ -48,7 +48,7 @@ public class cart extends HttpServlet {
             throws ServletException, IOException {
          
         String VUE = "/WEB-INF/cart.jsp";
-        
+        response.setContentType("text/html;charset=UTF-8");
         CartBeanLocal cart = (CartBeanLocal) request.getSession().getAttribute(SHOPPING_CART_BEAN_SESION_KEY);
     
         if(cart == null){

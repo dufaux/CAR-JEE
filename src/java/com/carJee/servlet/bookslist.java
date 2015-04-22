@@ -43,7 +43,7 @@ public class bookslist extends HttpServlet {
         
         List<Book> booklst = bookfacade.findAll();
         String VUE = "/WEB-INF/books.jsp";
-        
+        response.setContentType("text/html;charset=UTF-8");
         request.setAttribute("bookslist", booklst);
         
         this.getServletContext().getRequestDispatcher(VUE).forward(request, response);

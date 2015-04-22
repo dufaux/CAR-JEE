@@ -37,6 +37,7 @@ public class ListAuthorServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Collection authors = authorFacade.findAll();
         request.setAttribute("authorsList", authors);
+        response.setContentType("text/html;charset=UTF-8");
         this.getServletContext().getRequestDispatcher("/WEB-INF/authors.jsp").forward(request, response);
     }
 

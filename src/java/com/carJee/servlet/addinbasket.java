@@ -44,7 +44,7 @@ public class addinbasket extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        response.setContentType("text/html;charset=UTF-8");
         CartBeanLocal cart = (CartBeanLocal) request.getSession().getAttribute(SHOPPING_CART_BEAN_SESION_KEY);
     
         if(cart == null){

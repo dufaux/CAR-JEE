@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,14 +16,22 @@
     </head>
     <body>
         <div id="div_connection">
-            <form action="index" method="post">
-            <label for="identifiant">Adresse email</label>
-            <input type="text" id="identifiant" name="identifiant" value="" size="12" maxlength="60" />
+            <c:if test="${!connected}">
+                <form action="index" method="post">
+                <label for="ident">Adresse email</label>
+                <input type="text" id="ident" name="ident" value="" size="12" maxlength="60" />
 
-            <label for="motdepasse">Mot de passe</label>
-            <input type="password" id="motdepasse" name="motdepasse" value="" size="12" maxlength="20" />
-            <input type="submit" value="ok"/>
-            </form>
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="password" value="" size="12" maxlength="20" />
+                <input type="submit" value="ok"/>
+                </form>
+                <c:if test="${wrongconnec}">
+                    <span class="error">Identifiant ou mot de passe incorrect(s)</span>
+                </c:if>
+            </c:if>
+            <c:if test="${connected}">
+                <span>connecté en tant que ${identifiant}</span>
+            </c:if>
         </div>
         <H1 id="main_title">Bienvenue chez la FNAC <H1>
         <div class="centrage_text">

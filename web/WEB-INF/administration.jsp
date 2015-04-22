@@ -19,7 +19,7 @@
                 <filedset>
                     <legend>Ajout de livre</legend>
                     <label for="title">Titre</label>
-                    <input type="text" id="title" name="title" value="" size="12" maxlength="60" />
+                    <input type="text" id="username" name="title" value="" size="12" maxlength="60" />
                     <br />
                     
                     <label for="year">Annee</label>
@@ -32,8 +32,7 @@
                             <option value="${author.id}">${author.name} ${author.firstname}</option>
                         </c:forEach>
                     </select>
-                    <br />
-                    
+                    <br />                    
                     <input type="submit" value="Ajouter"/>
                     <br />
                 </filedset>

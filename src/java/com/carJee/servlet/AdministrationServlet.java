@@ -41,6 +41,7 @@ public class AdministrationServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         Collection authors = authorFacade.findAll();
         request.setAttribute("authorsList", authors);
+        response.setContentType("text/html;charset=UTF-8");
         this.getServletContext().getRequestDispatcher("/WEB-INF/administration.jsp").forward(request, response);
     }
     
