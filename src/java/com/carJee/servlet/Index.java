@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author dufaux
  */
-@WebServlet(name = "index", urlPatterns = {"/index"})
+@WebServlet(name = "index", urlPatterns = {"/accueil"})
 public class Index extends HttpServlet {
 
     

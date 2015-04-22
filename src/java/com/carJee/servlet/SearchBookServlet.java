@@ -5,30 +5,26 @@
  */
 package com.carJee.servlet;
 
-import com.carJee.facade.AuthorFacadeLocal;
 import com.carJee.facade.BookFacadeLocal;
-import com.carJee.model.Author;
 import com.carJee.model.Book;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author dufaux
+ * @author rakotoarivony
  */
-@WebServlet(name = "bookslist", urlPatterns = {"/listBooks"})
-public class bookslist extends HttpServlet {
+public class SearchBookServlet extends HttpServlet {
 
     @EJB(name="BookFacade")
-    BookFacadeLocal bookfacade;
-            
+    private BookFacadeLocal bookFacade;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,13 +36,11 @@ public class bookslist extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        List<Book> booklst = bookfacade.findAll();
-        String VUE = "/WEB-INF/books.jsp";
         response.setContentType("text/html;charset=UTF-8");
-        request.setAttribute("bookslist", booklst);
-        
-        this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
+        String bookname = request.getParameter("bookname");
+        List<Book> bookslist= bookFacade.findByName(bookname);
+        request.setAttribute("bookslist", bookslist);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/books.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

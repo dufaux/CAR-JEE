@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="css/layout.css" media="screen" />
     </head>
     <body>
+        <%@include file="searchbar.jsp" %>
         <div id="div_connection">
             <c:if test="${!connected}">
                 <form action="index" method="post">
@@ -35,7 +36,7 @@
         </div>
         <H1 id="main_title">Bienvenue chez la FNAC <H1>
         <div class="centrage_text">
-            <a href="bookslist" class="button_link">Acceder au catalogue de livres</a>
+            <a href="listBooks" class="button_link">Acceder au catalogue de livres</a>
             <a href="listAuthors" class="button_link">Acceder à la liste des auteurs</a>
         </div>
     </body>
