@@ -38,3 +38,8 @@ create table book_join_command(
 	constraint book_fk foreign key (title) references book,
         constraint command_fk foreign key (command_number) references command
 );
+
+insert into author values('Hugo','Victor');
+insert into author values('Hemingway','Ernest');
+insert into author values('Boulet','');
+insert into author values('Houellebecq','Michel');
