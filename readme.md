@@ -38,10 +38,10 @@ To simplify and not use java code in the JSP files, the JSTL library is used.
 ## Packages
 | Nom | Description |
 |-----|-------------|
-| bean | contains file used as bean for session (actually the cart)|
+| bean | Contains session beans to handle one user session|
 | facade   | contains facade connecting application with database |
-| model   | contains main class of the application |
-| servlet  | contains servlet used to make link beetween url and jsp page (as controller) |
+| model   | Contains all entity beans that are used as models |
+| servlet  | Contains all servlets that are used as controllers |
 
 
 # Exceptions
