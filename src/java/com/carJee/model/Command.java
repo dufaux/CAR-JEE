@@ -21,7 +21,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
- * Represents the table command from the database
+ * Represents the table command from the database.
+ * A command is an order and it is caracterized by an id and the collection of books that have been ordered
+ * The id is used as primary key
  * @author rakotoarivony
  */
 @Entity

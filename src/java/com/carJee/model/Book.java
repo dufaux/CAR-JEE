@@ -22,7 +22,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * Represents the table book from the database
+ * Represents the table book from the database. 
+ * A book is characterized by its title, its year of parution and its author.
+ * The title is used as primary id.
+ * A book can be commanded in many different commands and those commands can be get by a book.
  * @author rakotoarivony
  */
 @Entity

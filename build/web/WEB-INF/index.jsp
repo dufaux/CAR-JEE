@@ -16,15 +16,26 @@
     </head>
     <body>
         <%@include file="searchbar.jsp" %>
+        <div id="div_panier">
+            <a href="cart">
+                <span class="span_display_block">Voir votre panier</span>
+                <img class="display_inherit" src="img/panier.png">
+            </a>
+            <a href="listBooks">
+                <span class="span_display_block">Aller à la boutique</span>
+            </a>
+            <a href="admin"><span class="span_display_block">Ajouter un livre</span></a>
+        </div>
         <div id="div_connection">
             <c:if test="${!connected}">
                 <form action="accueil" method="post">
-                <label for="ident">Adresse email</label>
+                <label for="ident">Identifiant</label>
                 <input type="text" id="ident" name="ident" value="" size="12" maxlength="60" />
 
                 <label for="password">Mot de passe</label>
                 <input type="password" id="password" name="password" value="" size="12" maxlength="20" />
                 <input type="submit" value="ok"/>
+                <a href="register"><button>S'enregistrer</button></a>
                 </form>
                 <c:if test="${wrongconnec}">
                     <span class="error">Identifiant ou mot de passe incorrect(s)</span>

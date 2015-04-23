@@ -10,10 +10,19 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="css/layout.css" media="screen" />
         <title>Administration</title>
     </head>
     <body>     
         <h1 id="main_title">Administration</h1>
+        <div id="div_panier">
+            <a href="listBooks">
+                <span class="span_display_block">Retour à la boutique</span>
+            </a>
+            <a href="accueil">
+                <span class="span_display_block">Retour à l'accueil</span>
+            </a>
+        </div>
         <div id="div_form">
             <form action="admin" method="post">
                 <fieldset>
@@ -49,8 +58,5 @@
                 <br />
             </div>
         </c:if>
-        <div class="div-generatebook">
-            <button>Générer des livres dans la base</button>
-        </div>
     </body>
 </html>

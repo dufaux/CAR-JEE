@@ -19,7 +19,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * Represents the table client from the database
+ * Represents the table client from the database.
+ * A client is caracterized by its username, password and email
+ * The username is used as primary key
+ * One client can do many orders and they can be get for ecah client.
  * @author rakotoarivony
  */
 @Entity

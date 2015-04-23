@@ -6,6 +6,7 @@
 package com.carJee.servlet;
 
 import com.carJee.bean.CartBeanLocal;
+import com.carJee.facade.BookFacadeLocal;
 import com.carJee.facade.ClientFacadeLocal;
 import com.carJee.facade.CommandFacadeLocal;
 import com.carJee.model.Book;
@@ -38,6 +39,9 @@ public class CheckoutServlet extends HttpServlet {
         
     @EJB(name="CommandFacade")
     CommandFacadeLocal commandfacade;
+    
+    @EJB(name="BookFacade")
+    BookFacadeLocal bookfacade;
     
     EntityManager em;
     
@@ -78,20 +82,22 @@ public class CheckoutServlet extends HttpServlet {
         }
         else{      
             Command c = new Command();
-            books =  new ArrayList(cart.getAll());          
+            books =  cart.getAll();          
             Client client = clientfacade.find(identifiant);
-            
-            //bi-directionnel
-            for(Book b : books){
-                Collection<Command> coms = b.getCommandCollection();
-                coms.add(c);
-                b.setCommandCollection(coms);
-            }
             
             c.setBookCollection(books);
             c.setClientUsername(client);
             
             commandfacade.create(c);
+            
+            //bi-directionnel
+            for(Book b : books){
+                Collection<Command> coms = b.getCommandCollection();
+                coms.add(c);
+                bookfacade.edit(b);
+            }
+            
+            
                         
             cart.confirmOrder();
         }

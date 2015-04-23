@@ -9,10 +9,19 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="css/layout.css" media="screen" />
         <title>Register Page</title>
     </head>
     <body>
         <h1>S'enregistrer</h1>
+        <div id="div_panier">
+            <a href="listBooks">
+                <span class="span_display_block">Aller à la boutique</span>
+            </a>
+            <a href="accueil">
+                <span class="span_display_block">Aller à l'accueil</span>
+            </a>
+        </div>
         <div id="div_form">
             <form action="register" method="post">
                 <fieldset>

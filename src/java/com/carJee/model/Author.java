@@ -22,7 +22,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * Represents the table author from the database
+ * Represents the table author from the database. 
+ * An author is characterized by its name and its firstname. 
+ * For each couple of name,firstname an auhtor has a different id in database.
  * @author rakotoarivony
  */
 @Entity
@@ -111,10 +113,7 @@ public class Author implements Serializable {
             return false;
         }
         Author other = (Author) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return other.name.equals(this.name)&& other.firstname.equals(this.firstname);
     }
 
     @Override

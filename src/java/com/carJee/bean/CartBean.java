@@ -44,6 +44,6 @@ public class CartBean implements CartBeanLocal {
 //    @Remove
     @Override
     public void confirmOrder() {
-        this.books.clear();
+        this.books = new ArrayList<>();
     }
 }

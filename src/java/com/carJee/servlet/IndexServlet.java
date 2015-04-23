@@ -17,15 +17,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Handles the page accueil which is the principal page of the application
+ * Entrypoint of the website accessible at url : localhost:8080/ebook/
+ * Redirect to the page 'acceuil'
  * @author dufaux
  */
-@WebServlet(name = "index", urlPatterns = {"/accueil"})
+@WebServlet(name = "index", urlPatterns = {"/index.html"})
 public class IndexServlet extends HttpServlet {
-
-    
-    @EJB(name="ClientFacade")
-    ClientFacadeLocal clientfacade;
        
     /**
      * 
@@ -38,37 +35,8 @@ public class IndexServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-        boolean connected = true;
-        boolean wrongconnec = false;
-        
-        // gestion de la connexion.
-        String ident = (String) request.getParameter("ident");
-        String password = (String) request.getParameter("password");
-        
-        if(ident != null && password != null){
-            Client cli = clientfacade.find(ident);
-            
-            
-            if(cli != null && password.equals(cli.getPassword())){
-                request.getSession().setAttribute("idcli",ident);
-                connected = true;
-            }
-            else{
-                wrongconnec = true;
-            }
-        }
-        
-        String identifiant = (String) request.getSession().getAttribute("idcli");
-        if(identifiant == null){
-            connected = false;
-        }
-        request.setAttribute("connected", connected);
-        request.setAttribute("wrongconnec", wrongconnec);
-        request.setAttribute("identifiant", identifiant);
-        String VUE = "/WEB-INF/index.jsp";
-        this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
+            throws ServletException, IOException {        
+        response.sendRedirect("accueil");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
