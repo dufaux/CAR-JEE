@@ -22,7 +22,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- *
+ * Represents the table author from the database
  * @author rakotoarivony
  */
 @Entity

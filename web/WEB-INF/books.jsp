@@ -38,18 +38,19 @@
             </div>
         </c:forEach>
         </div>
-    </body>
-    <script>
-    $(document).ready(function(){
-        $(".addbutton").click(function(){
-            $.ajax({
-               url : 'addinbasket', // La ressource ciblée
-               type : 'POST', // Le type de la requête HTTP.
-               data : 'book='+this.value,
-               dataType : 'html'
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $(".addbutton").click(function(){
+                    $.ajax({
+                       url : 'addinbasket', // La ressource ciblée
+                       type : 'POST', // Le type de la requête HTTP.
+                       data : 'book='+this.value,
+                       dataType : 'html'
+                    });
+                alert("le livre a bien été ajouté");
+                });
             });
-        alert("le livre a bien été ajouté");
-        });
-    });
-    </script>
+        </script>
+    </body>    
 </html>
+

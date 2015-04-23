@@ -21,7 +21,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
- *
+ * Represents the table command from the database
  * @author rakotoarivony
  */
 @Entity

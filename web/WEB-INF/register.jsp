@@ -15,7 +15,7 @@
         <h1>S'enregistrer</h1>
         <div id="div_form">
             <form action="register" method="post">
-                <filedset>
+                <fieldset>
                     <legend>Information</legend>
                     <label for="username">Nom d'utilisateur</label>
                     <input type="text" id="username" name="username" value="" size="12" maxlength="60" />
@@ -25,13 +25,13 @@
                     <input type="password" id="password" name="password"/>
                     <br />
                     
-                    <label for="email">Auteur</label>
+                    <label for="email">Email</label>
                     <input type="email" id="email" name="email"/>
                     <br />
                     
                     <input type="submit" value="S'enregistrer"/>
                     <br />
-                </filedset>
+                </fieldset>
             </form>
         </div>
     </body>

@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * Handles the administration page
  * @author rakotoarivony
  */
 public class AdministrationServlet extends HttpServlet {

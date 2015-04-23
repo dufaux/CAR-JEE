@@ -8,6 +8,6 @@
 <div id="searchbar">
     <form action="search" class="formulaire" method="get">
         <input name="bookname" class="champ" type="text" value="" placeholder="Cherchez un livre"/>
-        <button class="bouton" type="submit" ><img src="img/toolbar_find.ico" alt="Rechercher" /></button>
+        <button class="button" type="submit" ><img src="img/toolbar_find.ico" alt="Rechercher" /></button>
     </form>
 </div>

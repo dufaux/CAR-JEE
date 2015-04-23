@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.carJee.bean;
 
 import com.carJee.model.Book;
@@ -16,7 +11,8 @@ import javax.ejb.StatefulTimeout;
 import javax.ejb.Stateless;
 
 /**
- *
+ * Represents a cart during one user session.
+ * When a user adds a book for first time, a cartBean is created and will not be destroyed until user's session expires
  * @author dufaux
  */
 @Stateful
@@ -30,23 +26,24 @@ public class CartBean implements CartBeanLocal {
         books = new ArrayList<Book>();
     }
     
+    @Override
     public void addBook(Book b) {
         books.add(b);
     }
 
+    @Override
     public void removeBook(Book b) {
         books.remove(b);
     }
 
+    @Override
     public List<Book> getAll() {
         return this.books;
     }
 
 //    @Remove
+    @Override
     public void confirmOrder() {
         this.books.clear();
     }
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
 }

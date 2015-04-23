@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * Handles the search of a book
  * @author rakotoarivony
  */
 public class SearchBookServlet extends HttpServlet {

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.carJee.facade;
 
 import com.carJee.model.Book;
@@ -13,7 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
- *
+ * Is a facade implementation to make persistence for books
  * @author rakotoarivony
  */
 @Stateless
@@ -37,8 +32,6 @@ public class BookFacade extends AbstractFacade<Book> implements BookFacadeLocal 
         Query query = em.createQuery(GET_BOOK_BY_NAME);
         query.setParameter("bookname", "%"+name+"%");       
         return query.getResultList();        
-    }
-    
-    
+    }    
     
 }

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * Handles the registration of a new client
  * @author rakotoarivony
  */
 public class RegisterServlet extends HttpServlet {

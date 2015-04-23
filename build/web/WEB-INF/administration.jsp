@@ -16,10 +16,10 @@
         <h1 id="main_title">Administration</h1>
         <div id="div_form">
             <form action="admin" method="post">
-                <filedset>
+                <fieldset>
                     <legend>Ajout de livre</legend>
                     <label for="title">Titre</label>
-                    <input type="text" id="username" name="title" value="" size="12" maxlength="60" />
+                    <input type="text" id="title" name="title" value="" size="12" maxlength="60" />
                     <br />
                     
                     <label for="year">Annee</label>
@@ -27,7 +27,7 @@
                     <br />
                     
                     <label for="author">Auteur</label>
-                    <select type="select" id="author" name="author">
+                    <select id="author" name="author">
                         <c:forEach items="${authorsList}" var="author">
                             <option value="${author.id}">${author.name} ${author.firstname}</option>
                         </c:forEach>
@@ -35,7 +35,7 @@
                     <br />                    
                     <input type="submit" value="Ajouter"/>
                     <br />
-                </filedset>
+                </fieldset>
             </form>
         </div>
         <c:if test="${book_added}">

@@ -16,10 +16,18 @@ This program is a Java EE webserver. It provide a web store where people can reg
 In netbeans:
 ```
 Start the glassfish server
-Run the project
-The main site is accessible to : http://localhost:8080/test1/accueil
+Start the database carJee
+Open and run the project
+The main site is accessible to : http://localhost:8080/ebook/accueil
 ```
-
+Or by using the war file:
+```
+Start the glassfish server
+Start the database carJee
+Go to http://localhost:4848
+Click on deploy application and select the file ebook.war
+The main site is accessible to : http://localhost:8080/ebook/accueil
+```
 
 # Design
 The main application uses the MVC design pattern. JSP files are used as views, Servlets and session beans are used as controllers and entity beans with the database are used as models. 

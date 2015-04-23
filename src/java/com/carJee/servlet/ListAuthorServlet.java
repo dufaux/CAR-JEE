@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * Handles the listing of all authors
  * @author rakotoarivony
  */
 public class ListAuthorServlet extends HttpServlet {

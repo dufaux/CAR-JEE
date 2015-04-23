@@ -11,7 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- *
+ * Is a facade implementation to make persistence for authors
  * @author rakotoarivony
  */
 @Stateless
