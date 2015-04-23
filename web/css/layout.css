@@ -80,3 +80,7 @@ and open the template in the editor.
 #div_panier{
     float: right;
 }
+
+.error{
+    color: red;
+}

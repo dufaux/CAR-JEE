@@ -18,7 +18,7 @@
         <%@include file="searchbar.jsp" %>
         <div id="div_connection">
             <c:if test="${!connected}">
-                <form action="index" method="post">
+                <form action="accueil" method="post">
                 <label for="ident">Adresse email</label>
                 <input type="text" id="ident" name="ident" value="" size="12" maxlength="60" />
 
@@ -34,7 +34,7 @@
                 <span>connecté en tant que ${identifiant}</span>
             </c:if>
         </div>
-        <H1 id="main_title">Bienvenue chez la FNAC <H1>
+        <h1 id="main_title">Bienvenue chez la FNAC </h1>
         <div class="centrage_text">
             <a href="listBooks" class="button_link">Acceder au catalogue de livres</a>
             <a href="listAuthors" class="button_link">Acceder à la liste des auteurs</a>

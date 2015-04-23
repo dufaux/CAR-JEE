@@ -16,8 +16,11 @@
     <body>  
         <H1 id="main_title">Voici les livres de votre panier</H1>
         <div id="div_panier">
-            <a href=" bookslist">
+            <a href="listBooks">
                 <span class="span_display_block">Retour à la boutique</span>
+            </a>
+            <a href="accueil">
+                <span class="span_display_block">Retour à l'accueil</span>
             </a>
         </div>
         <div id="book_list">
@@ -31,9 +34,12 @@
                         ${b.author.firstname}
                     </span>
                 </div>
-                        <a href="cart?deletedname=${b.title}"><button class="delbutton"">Retirer du panier</button></a>
+                        <a href="cart?deletedname=${b.title}"><button class="delbutton">Retirer du panier</button></a>
             </div>
         </c:forEach>
+        </div>
+        <div class="centrage_text">
+            <a href="checkout"><button>Commander</button></a>
         </div>
     </body>
 </html>

@@ -42,9 +42,9 @@ public class CartBean implements CartBeanLocal {
         return this.books;
     }
 
-    @Remove
-    public void confimOrder() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    @Remove
+    public void confirmOrder() {
+        this.books.clear();
     }
 
     // Add business logic below. (Right-click in editor and choose

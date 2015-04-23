@@ -23,5 +23,5 @@ public interface CartBeanLocal {
     
     public List<Book> getAll();
     
-    public void confimOrder();
+    public void confirmOrder();
 }
